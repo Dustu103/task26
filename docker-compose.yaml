@@ -5,11 +5,13 @@ services:
     image: mysql:latest
     container_name: mysql-school
     restart: always
+    env_file:
+      - .env
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: school_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -24,11 +26,13 @@ services:
       - mysql
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
-      DB_HOST: mysql
-      DB_USER: user
-      DB_PASSWORD: userpassword
-      DB_NAME: school_db
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     volumes:
       - .:/app
       - /app/node_modules
